@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends Component {
+
+
+class App extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -10,35 +12,32 @@ class App extends Component {
     }
   }
 
- IncValue = (value) => {
+  IncValue = (value) => {
     this.setState({counter: this.state.counter + value})
- }
-  render() {
-    return (
-      <div className="App">
-        <Button Inc={1} IncVal={this.IncValue}/>
-        <Button Inc={5} IncVal={this.IncValue}/>
-        <Button Inc={10} IncVal={this.IncValue}/>
-        <Button Inc={100} IncVal={this.IncValue}/>
-        <Result res={this.state.counter} />
-      </div>
-    );
-  }
-}
-
-
-class Button extends Component{
-  constructor(props){
-    super(props);
-  }
-
-  countInc = () =>{
-    this.props.IncVal(this.props.Inc)
   }
 
   render(){
     return(
-        <input type="button" value={this.props.Inc} onClick={this.countInc} />
+      <div>
+        <Button incval={5} contfun={this.IncValue}/>
+        <Button incval={10} contfun={this.IncValue}/>
+        <Button incval={50} contfun={this.IncValue}/>
+        <Button incval={100} contfun={this.IncValue}/>
+        <Result count={this.state.counter} />
+      </div>
+    )
+  }
+}
+
+class Button extends Component{
+
+  countInc = () => {
+    this.props.contfun(this.props.incval);
+  }
+
+  render(){
+    return(
+      <input type="button" value={this.props.incval} onClick={this.countInc}/>
     )
   }
 }
@@ -47,7 +46,7 @@ class Button extends Component{
 const Result = (props) =>{
   return(
     <div>
-      <input type="text" value={props.res}/>
+      <input type="text" value={props.count} />
     </div>
   )
 }
